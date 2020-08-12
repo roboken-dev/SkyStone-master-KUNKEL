@@ -31,7 +31,7 @@ public class TeleOpTutorial extends LinearOpMode
     @Override
 
 
-    public void runOpMode() throws InterruptedException
+    public void runOpMode()
     {
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
         motorRight = hardwareMap.dcMotor.get("motorRight");
