@@ -58,6 +58,17 @@ public class TurnByAngleTest extends LinearOpMode
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
+        telemetry.addData("Mode", "calibrating...");
+        telemetry.update();
+        while (!isStopRequested() && !imu.isGyroCalibrated())
+        {
+            sleep(50);
+            idle();
+        }
+
+        telemetry.addData("Mode", "waiting for start");
+        telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
+        telemetry.update();
 
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
 
@@ -69,6 +80,8 @@ public class TurnByAngleTest extends LinearOpMode
 
         waitForStart();
 
+        telemetry.addData("Mode", "running");
+        telemetry.update();
 
 
         DriveForwardByTime(DRIVE_POWER,1000);
@@ -157,6 +170,7 @@ public class TurnByAngleTest extends LinearOpMode
         }
         else return;
 
+
         motorLeft.setPower(leftPower);
         motorRight.setPower(rightPower);
 
@@ -168,6 +182,8 @@ public class TurnByAngleTest extends LinearOpMode
         }
         else
             while (opModeIsActive() && getAngle() < degrees) {}
+
+
 
         motorLeft.setPower(0);
         motorRight.setPower(0);
@@ -186,7 +202,6 @@ public class TurnByAngleTest extends LinearOpMode
 
         globalAngle = 0;
     }
-
 
 
 
