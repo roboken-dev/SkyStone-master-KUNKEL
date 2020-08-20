@@ -24,7 +24,7 @@ public class TurnByAngleAuto extends LinearOpMode
     BNO055IMU imu;
     Orientation angles;
     Orientation             lastAngles = new Orientation();
-    double                  globalAngle, power = .30, correction;
+    double                  globalAngle;
     @Override
 
 
