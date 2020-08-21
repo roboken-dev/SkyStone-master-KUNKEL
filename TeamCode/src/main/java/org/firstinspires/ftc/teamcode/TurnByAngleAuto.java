@@ -22,7 +22,6 @@ public class TurnByAngleAuto extends LinearOpMode
     private DcMotor motorLeft;
     private DcMotor motorRight;
     BNO055IMU imu;
-    Orientation angles;
     Orientation             lastAngles = new Orientation();
     double                  globalAngle;
     @Override
