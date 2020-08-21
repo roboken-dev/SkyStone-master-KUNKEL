@@ -39,6 +39,7 @@ public class SensorChallengeExample extends LinearOpMode {
     @Override
 
     public void runOpMode() {
+
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -47,6 +48,9 @@ public class SensorChallengeExample extends LinearOpMode {
         parameters.loggingTag = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
+
         digitalTouch = hardwareMap.get(TouchSensor.class, "touch1");
 
         sensorColor = hardwareMap.get(ColorSensor.class, "color1");
@@ -54,9 +58,10 @@ public class SensorChallengeExample extends LinearOpMode {
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
         motorRight = hardwareMap.dcMotor.get("motorRight");
 
+        motorLeft.setDirection(DcMotor.Direction.REVERSE);
 
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
+        motorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         telemetry.addData("Mode", "calibrating...");
@@ -71,10 +76,6 @@ public class SensorChallengeExample extends LinearOpMode {
         telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
         telemetry.update();
 
-        motorLeft.setDirection(DcMotor.Direction.REVERSE);
-
-        motorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         double DRIVE_POWER = 0.7;
 
@@ -158,7 +159,8 @@ public class SensorChallengeExample extends LinearOpMode {
     }
 
 
-    public void rotate(int degrees, double power) {
+    public void rotate(int degrees, double power)
+    {
         double leftPower, rightPower;
 
         resetAngle();
@@ -176,14 +178,11 @@ public class SensorChallengeExample extends LinearOpMode {
         motorRight.setPower(rightPower);
 
         if (degrees < 0) {
-            while (opModeIsActive() && getAngle() == 0) {
-            }
+            while (opModeIsActive() && getAngle() == 0) { }
 
-            while (opModeIsActive() && getAngle() > degrees) {
-            }
+            while (opModeIsActive() && getAngle() > degrees) { }
         } else
-            while (opModeIsActive() && getAngle() < degrees) {
-            }
+            while (opModeIsActive() && getAngle() < degrees) { }
 
 
         motorLeft.setPower(0);
@@ -215,15 +214,15 @@ public class SensorChallengeExample extends LinearOpMode {
             telemetry.update();
         }
 
+        telemetry.addData("Digital Touch", "Pressed");
+        telemetry.update();
+
         motorRight.setPower(0);
         motorLeft.setPower(0);
 
         sleep(250);
 
     }
-
-
-
 
 
 
