@@ -25,7 +25,6 @@ public class Test extends LinearOpMode
         motorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
-
         motorLeft.setPower(1);
         motorRight.setPower(1);
         sleep(2000);

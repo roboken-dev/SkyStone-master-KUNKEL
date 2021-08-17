@@ -125,7 +125,6 @@ public class ImuExample extends LinearOpMode
         sleep(250);
 
     }
-
-
+    
 
 }
