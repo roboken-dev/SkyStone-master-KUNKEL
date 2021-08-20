@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Drive By Encoder")
 
-public class DriveByEncoder extends LinearOpMode {
+public class DemoAutoWEncoder extends LinearOpMode {
 
     public DcMotor motorLeft;
     public DcMotor motorRight;
@@ -21,7 +21,7 @@ public class DriveByEncoder extends LinearOpMode {
     static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;
     static final double     WHEEL_DIAMETER_INCHES   = 2.5 ;
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415);
+            (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
 
@@ -66,6 +66,20 @@ public class DriveByEncoder extends LinearOpMode {
     }
 
 
+
+    public void driveByTime (double power, long time){
+
+        motorLeft.setPower(power);
+        motorRight.setPower(power);
+
+        sleep(time);
+
+        motorLeft.setPower(0.0);
+        motorRight.setPower(0.0);
+    }
+
+
+
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
@@ -93,14 +107,14 @@ public class DriveByEncoder extends LinearOpMode {
 
 
             while (opModeIsActive() &&
-                   (runtime.seconds() < timeoutS) &&
-                   (motorLeft.isBusy() && motorRight.isBusy())) {
+                    (runtime.seconds() < timeoutS) &&
+                    (motorLeft.isBusy() && motorRight.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d",
-                                            motorLeft.getCurrentPosition(),
-                                            motorRight.getCurrentPosition());
+                        motorLeft.getCurrentPosition(),
+                        motorRight.getCurrentPosition());
                 telemetry.update();
             }
 
