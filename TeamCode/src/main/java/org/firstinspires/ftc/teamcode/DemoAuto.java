@@ -11,7 +11,7 @@ public class DemoAuto extends LinearOpMode {
     private DcMotor motorLeft;
     private DcMotor motorRight;
     @Override
-//GitHub is making me do this
+
     public void runOpMode()
     {
 

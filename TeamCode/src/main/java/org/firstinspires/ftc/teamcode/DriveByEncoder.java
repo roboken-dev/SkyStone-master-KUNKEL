@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 
-@Autonomous(name="Drive By Encoder")
+@Autonomous(name="DriveByEncoder")
 
 public class DriveByEncoder extends LinearOpMode {
 
